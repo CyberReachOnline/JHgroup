@@ -186,8 +186,11 @@ textarea::placeholder {
 	max-width: 200px;
 }
 .header-nav {
-	padding: 25px 60px !important;
+	padding: 0px 60px !important;
 	margin-left: auto;
+	display: flex !important;
+	justify-content: center !important;
+	align-items: center !important;
 }
 .header-nav ul {
 	display: flex;
