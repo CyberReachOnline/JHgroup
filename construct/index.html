@@ -35,13 +35,14 @@
 
 		<div class="modal-form-body">
 			<div class="modal-form-title">Request a call</div>
-			<form>
-				<input type="text" placeholder="Your name*" required>
-				<input type="text" placeholder="Your phone*" required>
-				<button class="form-button">Send</button>
+			<form id="request-call-form">
+				<input type="text" id="name1" name="name" placeholder="Your name*" required>
+				<input type="number" id="phone1" name="phone" placeholder="Your phone*" required>
+				<button type="submit" class="form-button">Send</button>
 			</form>
 		</div>
-
+		
+		
 	</div>
 
 	<div class="go-up">
@@ -286,7 +287,7 @@
 						<div class="services-desc">
 							Experience the art of home construction with our expert building services.
 						</div>
-						<a href="#modal-form" data-effect="mfp-zoom-in" class="def-btn services-btn">Order service</a>
+						<a href="#modal-form" data-effect="mfp-zoom-in" class="def-btn services-btn">Request a call</a>
 					</div>
 				</div>
 
@@ -299,7 +300,7 @@
 						<div class="services-desc">
 							Elevate your living space with our top-tier home renovation services. Whether it's a complete subtle enhancements.
 						</div>
-						<a href="#modal-form" data-effect="mfp-zoom-in" class="def-btn services-btn">Order service</a>
+						<a href="#modal-form" data-effect="mfp-zoom-in" class="def-btn services-btn">Request a call</a>
 					</div>
 				</div>
 
@@ -312,7 +313,7 @@
 						<div class="services-desc">
 							Unlock the potential of innovative design with our comprehensive building planning services.
 						</div>
-						<a href="#modal-form" data-effect="mfp-zoom-in" class="def-btn services-btn">Order service</a>
+						<a href="#modal-form" data-effect="mfp-zoom-in" class="def-btn services-btn">Request a call</a>
 					</div>
 				</div>
 
@@ -645,12 +646,13 @@
 				</div>
 
 				<div class="form-right">
-					<form>
-						<input type="text" placeholder="Your name*" required>
-						<input type="text" placeholder="Your phone*" required>
-						<input type="text" placeholder="Your email">
-						<textarea cols="30" rows="5" placeholder="Comment"></textarea>
-						<button class="def-btn form-button">Send</button>
+					<form action="https://api.web3forms.com/submit" method="POST" onsubmit="sendWhatsAppMessage()">
+						<input type="hidden" name="access_key" value="213ade23-1eb7-48a3-a313-5a316b226881">
+						<input type="text" id="name" name="name" placeholder="Your name*" required>
+						<input type="number" id="phone" name="phone" placeholder="Your phone*" required>
+						<input type="email" id="email" name="email" placeholder="Your email">
+						<textarea id="message" name="message" placeholder="Comment"></textarea>
+						<button class="def-btn form-button" type="submit">Send</button>
 					</form>
 				</div>
 
@@ -741,6 +743,44 @@
 	<script src="js/magnific-popup.min.js"></script>
 	<script src="js/wow.min.js"></script>
 	<script src="js/script.js"></script>
+	<script>
+		function sendWhatsAppMessage() {
+			// event.preventDefault();
+	
+			var name = document.getElementById('name').value;
+			var phone = document.getElementById('phone').value;
+			var email = document.getElementById('email').value;
+			var message = document.getElementById('message').value;
+			var whatsappNumber = '+917975804459'; // Replace with the actual WhatsApp number
+	
+			var whatsappUrl = 'https://wa.me/' + whatsappNumber + '?text=' + encodeURIComponent('Name: ' + name + '\nPhone: ' + phone +  '\nEmail: ' + email + '\nMessage: ' + message);
+	
+			// window.open(whatsappUrl, '_blank');
+			window.open(whatsappUrl).focus();
+		}
+	
+		document.getElementById('whatsappForm').addEventListener('submit', sendWhatsAppMessage);
+	</script>
+	<script>
+		document.getElementById('request-call-form').addEventListener('submit', function(event) {
+			event.preventDefault(); // Prevent the default form submission
+		
+			const name = document.getElementById('name1').value;
+			const phone = document.getElementById('phone1').value;
+		
+			// Format the WhatsApp message
+			const message = `Hello, I would like to request a call regarding your services. My name is ${name} and my phone number is ${phone}.`;
+		
+			// Encode the message to be URL safe
+			const encodedMessage = encodeURIComponent(message);
+		
+			// Create the WhatsApp URL
+			const whatsappUrl = `https://wa.me/+917975804459?text=${encodedMessage}`;
+		
+			// Redirect to the WhatsApp URL
+			window.open(whatsappUrl, '_blank');
+		});
+		</script>
 </body>
 
 </html>
